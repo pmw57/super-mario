@@ -63,14 +63,20 @@ function loadSpriteSheet(name) {
             sheetSpec.tileH
         );
 
-        sheetSpec.tiles.forEach(function (tileSpec) {
-            sprites.defineTile(
-                tileSpec.name,
-                tileSpec.index[0],
-                tileSpec.index[1]
-            );
-        });
-
+        if (sheetSpec.tiles) {
+            sheetSpec.tiles.forEach(function (tileSpec) {
+                sprites.defineTile(
+                    tileSpec.name,
+                    tileSpec.index[0],
+                    tileSpec.index[1]
+                );
+            });
+        }
+        if (sheetSpec.frames) {
+            sheetSpec.frames.forEach(function (frameSpec) {
+                sprites.define(frameSpec.name, ...frameSpec.rect);
+            });
+        }
         return sprites;
     });
 }
@@ -99,4 +105,4 @@ function loadLevel(name) {
     });
 }
 
-export default Object.freeze({loadImage, loadLevel});
+export default Object.freeze({loadImage, loadSpriteSheet, loadLevel});

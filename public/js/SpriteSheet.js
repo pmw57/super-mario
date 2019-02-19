@@ -7,21 +7,32 @@ function makeSpriteSheet(image, width, height) {
     spriteSheet.tiles = new Map();
 
     spriteSheet.define = function define(name, x, y, width, height) {
-        const buffer = document.createElement("canvas");
-        buffer.width = width;
-        buffer.height = height;
-        buffer.getContext("2d").drawImage(
-            spriteSheet.image,
-            x,
-            y,
-            width,
-            height,
-            0,
-            0,
-            width,
-            height
-        );
-        spriteSheet.tiles.set(name, buffer);
+        const buffers = [false, true].map(function (flip) {
+            const buffer = document.createElement("canvas");
+            buffer.width = width;
+            buffer.height = height;
+
+            const context = buffer.getContext("2d");
+
+            if (flip) {
+                context.scale(-1, 1);
+                context.translate(-width, 0);
+            }
+
+            context.drawImage(
+                spriteSheet.image,
+                x,
+                y,
+                width,
+                height,
+                0,
+                0,
+                width,
+                height
+            );
+            return buffer;
+        });
+        spriteSheet.tiles.set(name, buffers);
     };
 
     spriteSheet.defineTile = function defineTile(name, x, y) {
@@ -35,7 +46,7 @@ function makeSpriteSheet(image, width, height) {
     };
 
     spriteSheet.draw = function draw(name, context, x, y) {
-        const buffer = spriteSheet.tiles.get(name);
+        const buffer = spriteSheet.tiles.get(name)[0];
         context.drawImage(buffer, x, y);
     };
 
