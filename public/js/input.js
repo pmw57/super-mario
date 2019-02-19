@@ -1,9 +1,9 @@
-import Keyboard from './KeyboardState.js';
+import keyboard from "./KeyboardState.js";
 
-export function setupKeyboard(entity) {
-    const input = new Keyboard();
+function setupKeyboard(entity) {
+    const input = keyboard();
 
-    input.addMapping('Space', keyState => {
+    input.addMapping("Space", function (keyState) {
         if (keyState) {
             entity.jump.start();
         } else {
@@ -11,13 +11,15 @@ export function setupKeyboard(entity) {
         }
     });
 
-    input.addMapping('ArrowRight', keyState => {
+    input.addMapping("ArrowRight", function (keyState) {
         entity.go.dir = keyState;
     });
 
-    input.addMapping('ArrowLeft', keyState => {
+    input.addMapping("ArrowLeft", function (keyState) {
         entity.go.dir = -keyState;
     });
 
     return input;
 }
+
+export default Object.freeze({setupKeyboard});

@@ -1,11 +1,10 @@
-import TileResolver from './TileResolver.js';
+import tileResolver from "./TileResolver.js";
 
-export default class TileCollider {
-    constructor(tileMatrix) {
-        this.tiles = new TileResolver(tileMatrix);
-    }
+function makeTileCollider(tileMatrix) {
+    const tileCollider = {};
+    tileCollider.tiles = tileResolver(tileMatrix);
 
-    checkX(entity) {
+    tileCollider.checkX = function checkX(entity) {
         let x;
         if (entity.vel.x > 0) {
             x = entity.pos.x + entity.size.x;
@@ -15,12 +14,15 @@ export default class TileCollider {
             return;
         }
 
-        const matches = this.tiles.searchByRange(
-            x, x,
-            entity.pos.y, entity.pos.y + entity.size.y);
+        const matches = tileCollider.tiles.searchByRange(
+            x,
+            x,
+            entity.pos.y,
+            entity.pos.y + entity.size.y
+        );
 
-        matches.forEach(match => {
-            if (match.tile.type !== 'ground') {
+        matches.forEach(function notGround(match) {
+            if (match.tile.type !== "ground") {
                 return;
             }
 
@@ -36,9 +38,9 @@ export default class TileCollider {
                 }
             }
         });
-    }
+    };
 
-    checkY(entity) {
+    tileCollider.checkY = function checkY(entity) {
         let y;
         if (entity.vel.y > 0) {
             y = entity.pos.y + entity.size.y;
@@ -48,12 +50,15 @@ export default class TileCollider {
             return;
         }
 
-        const matches = this.tiles.searchByRange(
-            entity.pos.x, entity.pos.x + entity.size.x,
-            y, y);
+        const matches = tileCollider.tiles.searchByRange(
+            entity.pos.x,
+            entity.pos.x + entity.size.x,
+            y,
+            y
+        );
 
-        matches.forEach(match => {
-            if (match.tile.type !== 'ground') {
+        matches.forEach(function notGround(match) {
+            if (match.tile.type !== "ground") {
                 return;
             }
 
@@ -69,5 +74,8 @@ export default class TileCollider {
                 }
             }
         });
-    }
+    };
+    return tileCollider;
 }
+
+export default Object.freeze(makeTileCollider);

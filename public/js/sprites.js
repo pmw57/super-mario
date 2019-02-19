@@ -1,11 +1,14 @@
-import SpriteSheet from './SpriteSheet.js';
-import {loadImage} from './loaders.js';
+import spriteSheet from "./SpriteSheet.js";
+import loaders from "./loaders.js";
 
-export function loadMarioSprite() {
-    return loadImage('/img/characters.gif')
-    .then(image => {
-        const sprites = new SpriteSheet(image, 16, 16);
-        sprites.define('idle', 276, 44, 16, 16);
-        return sprites;
-    });
+function loadMarioSprite() {
+    return loaders.loadImage("/img/characters.gif").then(
+        function defineSprites(image) {
+            const sprites = spriteSheet(image, 16, 16);
+            sprites.define("idle", 276, 44, 16, 16);
+            return sprites;
+        }
+    );
 }
+
+export default Object.freeze({loadMarioSprite});

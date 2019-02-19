@@ -1,9 +1,11 @@
-export default class Trait {
-    constructor(name) {
-        this.NAME = name;
-    }
+/*jslint browser */
+const makeTrait = function (name) {
+    const trait = {};
+    trait.NAME = name;
+    trait.update = function update() {
+        window.console.warn("Unhandled update call");
+    };
+    return trait;
+};
 
-    update() {
-        console.warn('Unhandled update call');
-    }
-}
+export default makeTrait;

@@ -1,29 +1,29 @@
-import Compositor from './Compositor.js';
-import TileCollider from './TileCollider.js';
-import {Matrix} from './math.js';
+import compositor from "./Compositor.js";
+import tileCollider from "./TileCollider.js";
+import math from "./math.js";
 
-export default class Level {
-    constructor() {
-        this.gravity = 2000;
+function makeLevel() {
+    const level = {};
+    level.gravity = 2000;
+    level.comp = compositor();
+    level.entities = new Set();
+    level.tiles = math.matrix();
+    level.tileCollider = tileCollider(level.tiles);
 
-        this.comp = new Compositor();
-        this.entities = new Set();
-        this.tiles = new Matrix();
-
-        this.tileCollider = new TileCollider(this.tiles);
-    }
-
-    update(deltaTime) {
-        this.entities.forEach(entity => {
+    level.update = function update(deltaTime) {
+        level.entities.forEach(function updateEntity(entity) {
             entity.update(deltaTime);
 
             entity.pos.x += entity.vel.x * deltaTime;
-            this.tileCollider.checkX(entity);
+            level.tileCollider.checkX(entity);
 
             entity.pos.y += entity.vel.y * deltaTime;
-            this.tileCollider.checkY(entity);
+            level.tileCollider.checkY(entity);
 
-            entity.vel.y += this.gravity * deltaTime;
+            entity.vel.y += level.gravity * deltaTime;
         });
-    }
+    };
+    return level;
 }
+
+export default Object.freeze(makeLevel);

@@ -1,32 +1,23 @@
-import {Vec2} from './math.js';
+import math from "./math.js";
 
-export class Trait {
-    constructor(name) {
-        this.NAME = name;
-    }
+function makeEntity() {
+    const entity = {};
+    entity.pos = math.vec2(0, 0);
+    entity.vel = math.vec2(0, 0);
+    entity.size = math.vec2(0, 0);
+    entity.traits = [];
 
-    update() {
-        console.warn('Unhandled update call in Trait');
-    }
-}
+    entity.addTrait = function (trait) {
+        entity.traits.push(trait);
+        entity[trait.NAME] = trait;
+    };
 
-export default class Entity {
-    constructor() {
-        this.pos = new Vec2(0, 0);
-        this.vel = new Vec2(0, 0);
-        this.size = new Vec2(0, 0);
-
-        this.traits = [];
-    }
-
-    addTrait(trait) {
-        this.traits.push(trait);
-        this[trait.NAME] = trait;
-    }
-
-    update(deltaTime) {
-        this.traits.forEach(trait => {
-            trait.update(this, deltaTime);
+    entity.update = function (deltaTime) {
+        entity.traits.forEach(function (trait) {
+            trait.update(entity, deltaTime);
         });
-    }
+    };
+    return entity;
 }
+
+export default Object.freeze(makeEntity);

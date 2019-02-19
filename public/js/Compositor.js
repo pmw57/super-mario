@@ -1,11 +1,13 @@
-export default class Compositor {
-    constructor() {
-        this.layers = [];
-    }
+function Compositor() {
+    const compositor = {};
+    compositor.layers = [];
 
-    draw(context, camera) {
-        this.layers.forEach(layer => {
-            layer(context, camera);
-        });
-    }
+    compositor.draw = function draw(context, camera) {
+        compositor.layers.forEach(
+            (layer) => layer(context, camera)
+        );
+    };
+    return compositor;
 }
+
+export default Object.freeze(Compositor);

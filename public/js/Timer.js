@@ -1,27 +1,31 @@
-export default class Timer {
-    constructor(deltaTime = 1/60) {
-        let accumulatedTime = 0;
-        let lastTime = 0;
+/*jslint browser */
+function Timer(deltaTime = 1 / 60) {
+    const timer = {};
 
-        this.updateProxy = (time) => {
-            accumulatedTime += (time - lastTime) / 1000;
+    let accumulatedTime = 0;
+    let lastTime = 0;
 
-            while (accumulatedTime > deltaTime) {
-                this.update(deltaTime);
-                accumulatedTime -= deltaTime;
-            }
+    timer.updateProxy = function updateProxy(time) {
+        accumulatedTime += (time - lastTime) / 1000;
 
-            lastTime = time;
-
-            this.enqueue();
+        while (accumulatedTime > deltaTime) {
+            timer.update(deltaTime);
+            accumulatedTime -= deltaTime;
         }
-    }
 
-    enqueue() {
-        requestAnimationFrame(this.updateProxy);
-    }
+        lastTime = time;
 
-    start() {
-        this.enqueue();
-    }
+        timer.enqueue();
+    };
+
+    timer.enqueue = function enqueue() {
+        window.requestAnimationFrame(timer.updateProxy);
+    };
+
+    timer.start = function start() {
+        timer.enqueue();
+    };
+    return timer;
 }
+
+export default Object.freeze(Timer);

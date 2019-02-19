@@ -1,12 +1,13 @@
-import {Trait} from '../Entity.js';
+import trait from "../Trait.js";
 
-export default class Velocity extends Trait {
-    constructor() {
-        super('velocity');
-    }
+function makeVelocity() {
+    const velocity = trait("velocity");
 
-    update(entity, deltaTime) {
+    velocity.update = function update(entity, deltaTime) {
         entity.pos.x += entity.vel.x * deltaTime;
         entity.pos.y += entity.vel.y * deltaTime;
-    }
+    };
+    return velocity;
 }
+
+export default Object.freeze(makeVelocity);

@@ -1,40 +1,54 @@
-export default class SpriteSheet {
-    constructor(image, width, height) {
-        this.image = image;
-        this.width = width;
-        this.height = height;
-        this.tiles = new Map();
-    }
+/*jslint browser */
+function makeSpriteSheet(image, width, height) {
+    const spriteSheet = {};
+    spriteSheet.image = image;
+    spriteSheet.width = width;
+    spriteSheet.height = height;
+    spriteSheet.tiles = new Map();
 
-    define(name, x, y, width, height) {
-        const buffer = document.createElement('canvas');
+    spriteSheet.define = function define(name, x, y, width, height) {
+        const buffer = document.createElement("canvas");
         buffer.width = width;
         buffer.height = height;
-        buffer
-            .getContext('2d')
-            .drawImage(
-                this.image,
-                x,
-                y,
-                width,
-                height,
-                0,
-                0,
-                width,
-                height);
-        this.tiles.set(name, buffer)
-    }
+        buffer.getContext("2d").drawImage(
+            spriteSheet.image,
+            x,
+            y,
+            width,
+            height,
+            0,
+            0,
+            width,
+            height
+        );
+        spriteSheet.tiles.set(name, buffer);
+    };
 
-    defineTile(name, x, y) {
-        this.define(name, x * this.width, y * this.height, this.width, this.height);
-    }
+    spriteSheet.defineTile = function defineTile(name, x, y) {
+        spriteSheet.define(
+            name,
+            x * spriteSheet.width,
+            y * spriteSheet.height,
+            spriteSheet.width,
+            spriteSheet.height
+        );
+    };
 
-    draw(name, context, x, y) {
-        const buffer = this.tiles.get(name);
+    spriteSheet.draw = function draw(name, context, x, y) {
+        const buffer = spriteSheet.tiles.get(name);
         context.drawImage(buffer, x, y);
-    }
+    };
 
-    drawTile(name, context, x, y) {
-        this.draw(name, context, x * this.width, y * this.height);
-    }
+    spriteSheet.drawTile = function drawTile(name, context, x, y) {
+        spriteSheet.draw(
+            name,
+            context,
+            x * spriteSheet.width,
+            y * spriteSheet.height
+        );
+    };
+
+    return spriteSheet;
 }
+
+export default Object.freeze(makeSpriteSheet);

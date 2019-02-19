@@ -1,14 +1,14 @@
-import {Trait} from '../Entity.js';
+import trait from "../Trait.js";
 
-export default class Go extends Trait {
-    constructor() {
-        super('go');
+function makeGo() {
+    const go = trait("go");
+    go.dir = 0;
+    go.speed = 6000;
 
-        this.dir = 0;
-        this.speed = 6000;
-    }
-
-    update(entity, deltaTime) {
-        entity.vel.x = this.speed * this.dir * deltaTime;
-    }
+    go.update = function update(entity, deltaTime) {
+        entity.vel.x = go.speed * go.dir * deltaTime;
+    };
+    return go;
 }
+
+export default Object.freeze(makeGo);

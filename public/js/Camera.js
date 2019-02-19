@@ -1,8 +1,10 @@
-import {Vec2} from './math.js';
+import math from "./math.js";
 
-export default class Camera {
-    constructor() {
-        this.pos = new Vec2(0, 0);
-        this.size = new Vec2(256, 224);
-    }
+function Camera() {
+    const camera = {};
+    camera.pos = math.vec2(0, 0);
+    camera.size = math.vec2(256, 224);
+    return camera;
 }
+
+export default Object.freeze(Camera);
