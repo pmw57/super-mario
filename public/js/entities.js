@@ -22,7 +22,13 @@ function createMario() {
             }
 
             mario.draw = function drawMario(context) {
-                sprite.draw(routeFrame(mario), context, 0, 0);
+                sprite.draw(
+                    routeFrame(mario),
+                    context,
+                    0,
+                    0,
+                    mario.go.heading < 0
+                );
             };
 
             return mario;

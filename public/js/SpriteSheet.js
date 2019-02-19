@@ -45,8 +45,12 @@ function makeSpriteSheet(image, width, height) {
         );
     };
 
-    spriteSheet.draw = function draw(name, context, x, y) {
-        const buffer = spriteSheet.tiles.get(name)[0];
+    spriteSheet.draw = function draw(name, context, x, y, flip = false) {
+        const buffer = spriteSheet.tiles.get(name)[(
+            flip
+            ? 1
+            : 0
+        )];
         context.drawImage(buffer, x, y);
     };
 
