@@ -44,7 +44,7 @@ function createTiles(level, backgrounds) {
                 applyRange(background, xStart, xLen, yStart, 1);
 
             } else if (range.length === 2) {
-                applyRange(background, range.xStart, 1, range.yStart, 1);
+                applyRange(background, range[0], 1, range[1], 1);
             }
         });
     });
