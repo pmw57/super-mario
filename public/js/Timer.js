@@ -8,6 +8,10 @@ function Timer(deltaTime = 1 / 60) {
     timer.updateProxy = function updateProxy(time) {
         accumulatedTime += (time - lastTime) / 1000;
 
+        if (accumulatedTime > 1) {
+            accumulatedTime = 1;
+        }
+
         while (accumulatedTime > deltaTime) {
             timer.update(deltaTime);
             accumulatedTime -= deltaTime;

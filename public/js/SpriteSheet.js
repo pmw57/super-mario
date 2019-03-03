@@ -5,6 +5,11 @@ function makeSpriteSheet(image, width, height) {
     spriteSheet.width = width;
     spriteSheet.height = height;
     spriteSheet.tiles = new Map();
+    spriteSheet.animations = new Map();
+
+    spriteSheet.defineAnim = function defineAnim(name, animation) {
+        spriteSheet.animations.set(name, animation);
+    };
 
     spriteSheet.define = function define(name, x, y, width, height) {
         const buffers = [false, true].map(function (flip) {
@@ -52,6 +57,11 @@ function makeSpriteSheet(image, width, height) {
             : 0
         )];
         context.drawImage(buffer, x, y);
+    };
+
+    spriteSheet.drawAnim = function drawAnim(name, context, x, y, distance) {
+        const animation = spriteSheet.animations.get(name);
+        spriteSheet.drawTile(animation(distance), context, x, y);
     };
 
     spriteSheet.drawTile = function drawTile(name, context, x, y) {

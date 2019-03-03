@@ -5,6 +5,7 @@ import math from "./math.js";
 function makeLevel() {
     const level = {};
     level.gravity = 2000;
+    level.totalTime = 0;
     level.comp = compositor();
     level.entities = new Set();
     level.tiles = math.matrix();
@@ -21,6 +22,8 @@ function makeLevel() {
             level.tileCollider.checkY(entity);
 
             entity.vel.y += level.gravity * deltaTime;
+
+            level.totalTime += deltaTime;
         });
     };
     return level;

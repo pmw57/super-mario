@@ -2,6 +2,7 @@
 import Level from "./Level.js";
 import SpriteSheet from "./SpriteSheet.js";
 import layers from "./layers.js";
+import createAnim from "./anim.js";
 
 function loadImage(url) {
     return new Promise(function resolveImage(resolve) {
@@ -75,6 +76,13 @@ function loadSpriteSheet(name) {
         if (sheetSpec.frames) {
             sheetSpec.frames.forEach(function (frameSpec) {
                 sprites.define(frameSpec.name, ...frameSpec.rect);
+            });
+        }
+
+        if (sheetSpec.animations) {
+            sheetSpec.animations.forEach(function ({name, frames, frameLen}) {
+                const animation = createAnim(frames, frameLen);
+                sprites.defineAnim(name, animation);
             });
         }
         return sprites;

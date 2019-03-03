@@ -13,17 +13,23 @@ function createBackgroundLayer(level, sprites) {
     let startIndex;
     let endIndex;
     function redraw(drawFrom, drawTo) {
-        if (drawFrom === startIndex && drawTo === endIndex) {
-            return;
-        }
-
         startIndex = drawFrom;
         endIndex = drawTo;
 
         let x = startIndex;
 
         function drawSpriteTile(tile, y) {
-            sprites.drawTile(tile.name, context, x - startIndex, y);
+            if (sprites.animations.has(tile.name)) {
+                sprites.drawAnim(
+                    tile.name,
+                    context,
+                    x - startIndex,
+                    y,
+                    level.totalTime
+                );
+            } else {
+                sprites.drawTile(tile.name, context, x - startIndex, y);
+            }
         }
 
         while (x <= endIndex) {

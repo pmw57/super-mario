@@ -2,7 +2,7 @@ import entity from "./Entity.js";
 import go from "./traits/Go.js";
 import jump from "./traits/Jump.js";
 import loaders from "./loaders.js";
-import createAnim from "./createAnim.js";
+import createAnim from "./anim.js";
 
 function createMario() {
     return loaders.loadSpriteSheet("mario").then(
