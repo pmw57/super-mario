@@ -12,6 +12,12 @@ function makeEntity() {
         entity[trait.NAME] = trait;
     };
 
+    entity.obstruct = function obstruct(side) {
+        entity.traits.forEach(function (trait) {
+            trait.obstruct(entity, side);
+        });
+    };
+
     entity.update = function (deltaTime) {
         entity.traits.forEach(function (trait) {
             trait.update(entity, deltaTime);
