@@ -8,6 +8,8 @@ function makeJump() {
     jump.ready = 0;
     jump.duration = 0.5;
     jump.engageTime = 0;
+    jump.requestTime = 0;
+    jump.gracePeriod = 0.1;
     jump.velocity = 200;
 
     Object.defineProperty(jump, "falling", {
@@ -16,12 +18,11 @@ function makeJump() {
         }
     });
     jump.start = function start() {
-        if (jump.ready > 0) {
-            jump.engageTime = jump.duration;
-        }
+        jump.requestTime = jump.gracePeriod;
     };
     jump.cancel = function cancel() {
         jump.engageTime = 0;
+        jump.requestTime = 0;
     };
     jump.obstruct = function obstruct(ignore, side) {
         if (side === sides.BOTTOM) {
@@ -31,6 +32,13 @@ function makeJump() {
         }
     };
     jump.update = function update(entity, deltaTime) {
+        if (jump.requestTime > 0) {
+            if (jump.ready > 0) {
+                jump.engageTime = jump.duration;
+                jump.requestTime = 0;
+            }
+            jump.requestTime -= deltaTime;
+        }
         if (jump.engageTime > 0) {
             entity.vel.y = -jump.velocity;
             jump.engageTime -= deltaTime;
