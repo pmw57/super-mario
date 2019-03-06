@@ -12,11 +12,19 @@ function setupKeyboard(entity) {
     });
 
     input.addMapping("ArrowRight", function (keyState) {
-        entity.go.dir = keyState;
+        entity.go.dir += (
+            keyState
+            ? 1
+            : -1
+        );
     });
 
     input.addMapping("ArrowLeft", function (keyState) {
-        entity.go.dir = -keyState;
+        entity.go.dir += (
+            keyState
+            ? -1
+            : 1
+        );
     });
 
     return input;
