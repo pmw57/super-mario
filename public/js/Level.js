@@ -4,7 +4,7 @@ import math from "./math.js";
 
 function makeLevel() {
     const level = {};
-    level.gravity = 2000;
+    level.gravity = 1500;
     level.totalTime = 0;
     level.comp = compositor();
     level.entities = new Set();

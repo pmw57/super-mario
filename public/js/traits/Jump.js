@@ -6,7 +6,7 @@ const sides = entity.sides;
 function makeJump() {
     const jump = trait("jump");
     jump.ready = 0;
-    jump.duration = 0.5;
+    jump.duration = 0.3;
     jump.engageTime = 0;
     jump.requestTime = 0;
     jump.gracePeriod = 0.1;
