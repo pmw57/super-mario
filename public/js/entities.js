@@ -4,6 +4,9 @@ import jump from "./traits/Jump.js";
 import loaders from "./loaders.js";
 import createAnim from "./anim.js";
 
+const SLOW_DRAG = 1 / 1000;
+const FAST_DRAG = 1 / 5000;
+
 function createMario() {
     return loaders.loadSpriteSheet("mario").then(
         function addMario(sprite) {
@@ -11,9 +14,18 @@ function createMario() {
             mario.size.set(14, 16);
 
             mario.addTrait(go());
+            mario.go.dragFactor = SLOW_DRAG;
             mario.addTrait(jump());
 
-            const runAnim = createAnim(["run-1", "run-2", "run-3"], 10);
+            mario.turbo = function setTurboState(turboOn) {
+                mario.go.dragFactor = (
+                    turboOn
+                    ? FAST_DRAG
+                    : SLOW_DRAG
+                );
+            };
+
+            const runAnim = createAnim(["run-1", "run-2", "run-3"], 6);
             function routeFrame(mario) {
                 if (mario.jump.falling) {
                     return "jump";
