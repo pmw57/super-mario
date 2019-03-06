@@ -14,7 +14,13 @@ function makeGo() {
         const absX = Math.abs(entity.vel.x);
         if (go.dir !== 0) {
             entity.vel.x += go.acceleration * deltaTime * go.dir;
-            go.heading = go.dir;
+            if (entity.jump) {
+                if (entity.jump.falling === false) {
+                    go.heading = go.dir;
+                }
+            } else {
+                go.heading = go.dir;
+            }
         } else if (entity.vel.x !== 0) {
             const decel = Math.min(absX, go.deceleration * deltaTime);
             entity.vel.x += (
