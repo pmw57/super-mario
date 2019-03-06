@@ -10,6 +10,7 @@ function makeJump() {
     jump.engageTime = 0;
     jump.requestTime = 0;
     jump.gracePeriod = 0.1;
+    jump.speedBoost = 0.3;
     jump.velocity = 200;
 
     Object.defineProperty(jump, "falling", {
@@ -40,7 +41,9 @@ function makeJump() {
             jump.requestTime -= deltaTime;
         }
         if (jump.engageTime > 0) {
-            entity.vel.y = -jump.velocity;
+            entity.vel.y = -(
+                jump.velocity + Math.abs(entity.vel.x) * jump.speedBoost
+            );
             jump.engageTime -= deltaTime;
         }
         jump.ready -= 1;
