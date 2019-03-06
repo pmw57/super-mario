@@ -11,4 +11,4 @@ const makeTrait = function (name) {
     return trait;
 };
 
-export default makeTrait;
+export default Object.freeze(makeTrait);
