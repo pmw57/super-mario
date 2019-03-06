@@ -24,6 +24,9 @@ Promise.all([
     const gameTimer = timer(1 / 60);
     gameTimer.update = function update(deltaTime) {
         level.update(deltaTime);
+        if (mario.pos.x > 100) {
+            window.camera.pos.x = mario.pos.x - 100;
+        }
         level.comp.draw(context, window.camera);
     };
 
