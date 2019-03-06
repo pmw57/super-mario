@@ -1,5 +1,10 @@
 import math from "./math.js";
 
+const sides = {
+    TOP: Symbol("top"),
+    BOTTOM: Symbol("bottom")
+};
+
 function makeEntity() {
     const entity = {};
     entity.pos = math.vec2(0, 0);
@@ -26,4 +31,7 @@ function makeEntity() {
     return entity;
 }
 
-export default Object.freeze(makeEntity);
+export default Object.freeze({
+    sides,
+    makeEntity
+});

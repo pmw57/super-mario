@@ -7,7 +7,7 @@ import createAnim from "./anim.js";
 function createMario() {
     return loaders.loadSpriteSheet("mario").then(
         function addMario(sprite) {
-            const mario = entity();
+            const mario = entity.makeEntity();
             mario.size.set(14, 16);
 
             mario.addTrait(go());
@@ -15,7 +15,7 @@ function createMario() {
 
             const runAnim = createAnim(["run-1", "run-2", "run-3"], 10);
             function routeFrame(mario) {
-                if (!mario.jump.ready) {
+                if (mario.jump.falling) {
                     return "jump";
                 }
                 if (mario.go.distance > 0) {

@@ -1,4 +1,7 @@
 import tileResolver from "./TileResolver.js";
+import entity from "./Entity.js";
+
+const sides = entity.sides;
 
 function makeTileCollider(tileMatrix) {
     const tileCollider = {};
@@ -66,12 +69,13 @@ function makeTileCollider(tileMatrix) {
                 if (entity.pos.y + entity.size.y > match.y1) {
                     entity.pos.y = match.y1 - entity.size.y;
                     entity.vel.y = 0;
-                    entity.obstruct("bottom");
+                    entity.obstruct(sides.BOTTOM);
                 }
             } else if (entity.vel.y < 0) {
                 if (entity.pos.y < match.y2) {
                     entity.pos.y = match.y2;
                     entity.vel.y = 0;
+                    entity.obstruct(sides.TOP);
                 }
             }
         });
