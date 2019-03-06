@@ -4,7 +4,6 @@ import timer from "./Timer.js";
 import loaders from "./loaders.js";
 import entities from "./entities.js";
 import input from "./input.js";
-import debug from "./debug.js";
 
 const canvas = document.getElementById("screen");
 const context = canvas.getContext("2d");
@@ -21,8 +20,6 @@ Promise.all([
 
     const keyboard = input.setupKeyboard(mario);
     keyboard.listenTo(window);
-
-    debug.setupMouseControl(canvas, mario, window.camera);
 
     const gameTimer = timer(1 / 60);
     gameTimer.update = function update(deltaTime) {
