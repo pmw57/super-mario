@@ -90,7 +90,7 @@ function createCollisionLayer(level) {
 
     return function drawCollision(context, camera) {
         context.strokeStyle = "blue";
-        resolvedTiles.forEach(function ({x, y}) {
+        resolvedTiles.forEach(function tileBorder({x, y}) {
             context.beginPath();
             context.rect(
                 x * tileSize - camera.pos.x,
@@ -102,7 +102,7 @@ function createCollisionLayer(level) {
         });
 
         context.strokeStyle = "red";
-        level.entities.forEach(function (entity) {
+        level.entities.forEach(function entityBorder(entity) {
             context.beginPath();
             context.rect(
                 entity.pos.x - camera.pos.x,

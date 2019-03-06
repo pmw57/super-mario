@@ -12,7 +12,7 @@ function makeSpriteSheet(image, width, height) {
     };
 
     spriteSheet.define = function define(name, x, y, width, height) {
-        const buffers = [false, true].map(function (flip) {
+        const buffers = [false, true].map(function drawSprite(flip) {
             const buffer = document.createElement("canvas");
             buffer.width = width;
             buffer.height = height;

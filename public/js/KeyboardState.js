@@ -24,8 +24,8 @@ const makeKeyboardState = function makeKeyboardState() {
 
         const keyState = (
             event.type === "keydown"
-                ? PRESSED
-                : RELEASED
+            ? PRESSED
+            : RELEASED
         );
 
         if (keyboard.keyStates.get(code) === keyState) {
@@ -38,8 +38,8 @@ const makeKeyboardState = function makeKeyboardState() {
     };
 
     keyboard.listenTo = function listenTo(window) {
-        ["keydown", "keyup"].forEach(function addHandler(eventName) {
-            window.addEventListener(eventName, function (event) {
+        ["keydown", "keyup"].forEach(function addHandlers(eventName) {
+            window.addEventListener(eventName, function keyHandler(event) {
                 keyboard.handleEvent(event);
             });
         });

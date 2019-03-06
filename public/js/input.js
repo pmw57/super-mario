@@ -3,7 +3,7 @@ import keyboard from "./KeyboardState.js";
 function setupKeyboard(entity) {
     const input = keyboard();
 
-    input.addMapping("KeyP", function (keyState) {
+    input.addMapping("KeyP", function jump(keyState) {
         if (keyState) {
             entity.jump.start();
         } else {
@@ -11,7 +11,7 @@ function setupKeyboard(entity) {
         }
     });
 
-    input.addMapping("KeyD", function (keyState) {
+    input.addMapping("KeyD", function moveRight(keyState) {
         entity.go.dir += (
             keyState
             ? 1
@@ -19,7 +19,7 @@ function setupKeyboard(entity) {
         );
     });
 
-    input.addMapping("KeyA", function (keyState) {
+    input.addMapping("KeyA", function moveLeft(keyState) {
         entity.go.dir += (
             keyState
             ? -1

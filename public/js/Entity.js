@@ -7,7 +7,7 @@ function makeEntity() {
     entity.size = math.vec2(0, 0);
     entity.traits = [];
 
-    entity.addTrait = function (trait) {
+    entity.addTrait = function add(trait) {
         entity.traits.push(trait);
         entity[trait.NAME] = trait;
     };
@@ -18,7 +18,7 @@ function makeEntity() {
         });
     };
 
-    entity.update = function (deltaTime) {
+    entity.update = function update(deltaTime) {
         entity.traits.forEach(function (trait) {
             trait.update(entity, deltaTime);
         });

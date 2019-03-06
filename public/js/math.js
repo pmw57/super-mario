@@ -3,8 +3,8 @@ function makeMatrix() {
     matrix.grid = [];
 
     matrix.forEach = function forEach(callback) {
-        matrix.grid.forEach(function (column, x) {
-            column.forEach(function (value, y) {
+        matrix.grid.forEach(function eachX(column, x) {
+            column.forEach(function eachY(value, y) {
                 callback(value, x, y);
             });
         });

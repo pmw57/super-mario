@@ -35,8 +35,8 @@ function createTiles(level, backgrounds) {
         }
     }
 
-    backgrounds.forEach(function (background) {
-        background.ranges.forEach(function (range) {
+    backgrounds.forEach(function loadRanges(background) {
+        background.ranges.forEach(function loadRange(range) {
             const [xStart, xLen, yStart, yLen] = range;
             if (range.length === 4) {
                 applyRange(background, xStart, xLen, yStart, yLen);
@@ -57,7 +57,7 @@ function loadSpriteSheet(name) {
             sheetSpec,
             loadImage(sheetSpec.imageURL)
         ])
-    ).then(function ([sheetSpec, image]) {
+    ).then(function defineSprites([sheetSpec, image]) {
         const sprites = new SpriteSheet(
             image,
             sheetSpec.tileW,
@@ -65,7 +65,7 @@ function loadSpriteSheet(name) {
         );
 
         if (sheetSpec.tiles) {
-            sheetSpec.tiles.forEach(function (tileSpec) {
+            sheetSpec.tiles.forEach(function defineTile(tileSpec) {
                 sprites.defineTile(
                     tileSpec.name,
                     tileSpec.index[0],
@@ -74,16 +74,18 @@ function loadSpriteSheet(name) {
             });
         }
         if (sheetSpec.frames) {
-            sheetSpec.frames.forEach(function (frameSpec) {
+            sheetSpec.frames.forEach(function defineFrames(frameSpec) {
                 sprites.define(frameSpec.name, ...frameSpec.rect);
             });
         }
 
         if (sheetSpec.animations) {
-            sheetSpec.animations.forEach(function ({name, frames, frameLen}) {
-                const animation = createAnim(frames, frameLen);
-                sprites.defineAnim(name, animation);
-            });
+            sheetSpec.animations.forEach(
+                function defineAnims({name, frames, frameLen}) {
+                    const animation = createAnim(frames, frameLen);
+                    sprites.defineAnim(name, animation);
+                }
+            );
         }
         return sprites;
     });
